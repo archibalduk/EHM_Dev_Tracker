@@ -21,6 +21,9 @@ public:
     enum RESULT_FLAGS { UNABLE_TO_OPEN_FILE = -999, INVALID_FILE_EXTENSION };
 
 private:
+    // File i/o
+    QString fileNameFromPath(const QString &path) const;
+
     // Run tools
     qint32 run();
 

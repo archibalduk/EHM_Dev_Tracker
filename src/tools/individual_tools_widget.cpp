@@ -3,6 +3,7 @@
 // Application headers
 #include "lib/ehm_dal/include/database/file_io/database_file_manager.h"
 #include "lib/ehm_dal/include/saved_game/file_io/saved_game_file_manager.h"
+#include "lib/ehm_dal/include/widgets/dialogs/progress_dialog.h"
 #include "src/individual_tools/research_spreadsheet_tool.h"
 
 // Qt headers
@@ -23,6 +24,21 @@ IndividualToolsWidget::IndividualToolsWidget(QWidget *parent)
     initUi();
 }
 
+/* ================== */
+/*      File I/O      */
+/* ================== */
+
+QString IndividualToolsWidget::fileNameFromPath(const QString &path) const
+{
+    const auto pos{path.lastIndexOf(QStringLiteral("/"), Qt::CaseInsensitive) + 1};
+
+    if (pos < 0)
+        return path;
+
+    QStringView sv(path);
+    return path.sliced(pos);
+}
+
 /* =================== */
 /*      Run Tools      */
 /* =================== */
@@ -31,8 +47,16 @@ qint32 IndividualToolsWidget::run(const QStringList &files)
 {
     auto run_count{0};
 
+    auto progress_dialog{
+        std::make_unique<ehm_dal::widgets::ProgressDialog>(QStringLiteral("Generating reports"),
+                                                           0,
+                                                           static_cast<qint32>(files.size()))};
+
     for (const auto &itr : files) {
-        qInfo().noquote() << QStringLiteral("Processing: %1").arg(itr);
+        const auto file_name{fileNameFromPath(itr)};
+
+        qInfo().noquote() << QStringLiteral("Processing: %1").arg(file_name);
+        progress_dialog->increment(file_name);
 
         std::unique_ptr<ehm_dal::file_io::AbstractFileManager> file_manager;
 
@@ -46,12 +70,13 @@ qint32 IndividualToolsWidget::run(const QStringList &files)
         if (!file_manager->open(itr))
             return UNABLE_TO_OPEN_FILE;
 
-        AbstractTool::setFileNamePrefix("a");
+        AbstractTool::setFileNamePrefix(file_name);
         run_count = run();
 
         file_manager->close(false);
     }
 
+    progress_dialog->complete();
     return run_count;
 }
 

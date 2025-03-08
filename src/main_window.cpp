@@ -78,10 +78,13 @@ qint32 MainWindow::about()
             "href=\"https://github.com/archibalduk/EHM_DAL/\">"
             "https://github.com/archibalduk/EHM_DAL/</a><br/><br/>"
             "<b>XLSX Module</b><br/>"
-            "QXlsx version 1.4.6 by Jay Two<br/><a href=\"https://qtexcel.github.io/QXlsx/\">"
+            "QXlsx version %5 by Jay Two<br/><a href=\"https://qtexcel.github.io/QXlsx/\">"
             "https://qtexcel.github.io/QXlsx/</a><br/>")
-            .arg(msc_ver, QT_VERSION_STR, qVersion())
-            .arg(ehm_dal::library_info::libraryVersion())};
+            .arg(msc_ver,
+                 QT_VERSION_STR,
+                 qVersion(),
+                 ehm_dal::library_info::libraryVersion(),
+                 ehm_dal::library_info::qxlsxVersion())};
 
     QMessageBox about;
     about.setWindowTitle(QString("About " + application_name));
@@ -119,5 +122,5 @@ void MainWindow::initUi()
 
     about_button_ = new QPushButton(QStringLiteral("&About"), this);
     QObject::connect(about_button_, &QPushButton::clicked, this, &MainWindow::about);
-    button_box->addButton(about_button_, QDialogButtonBox::HelpRole);
+    button_box->addButton(about_button_, QDialogButtonBox::ResetRole);
 }
