@@ -18,6 +18,7 @@ class AbstractFileManager
 {
 public:
     AbstractFileManager(const QString &folder_path_key);
+    virtual ~AbstractFileManager() = default;
 
     // Close database/tables
     /*!

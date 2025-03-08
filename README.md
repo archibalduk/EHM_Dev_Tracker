@@ -32,7 +32,7 @@ Select the report types to be generated. The following report types are presentl
 [@archibalduk](https://www.github.com/archibalduk)
 
 # Credits
-Icons made by <a target="_blank" href="https://www.flaticon.com/authors/graphicmall" title="graphicmall">graphicmall</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a>
+Icons made by <a target="_blank" href="https://www.flaticon.com/authors/graphicmall" title="graphicmall">graphicmall</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
 
 EHM Development Tracker uses [QXlsx by j2doll](https://github.com/QtExcel/QXlsx). QXlsx is licensed under the MIT license.
 

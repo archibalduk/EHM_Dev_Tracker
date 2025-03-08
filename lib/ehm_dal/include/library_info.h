@@ -15,4 +15,6 @@ QString libraryShortName();
 // Version
 QString libraryVersion();
 quint64 libraryVersionIdentifier();
+// QXlsx
+QString qxlsxVersion();
 } // namespace ehm_dal::library_info

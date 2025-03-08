@@ -78,6 +78,72 @@ public:
              const std::vector<qint32> &column_index_list,
              const Qt::ItemDataRole role = Qt::DisplayRole);
 
+    // Add data - cells/rows: Dual AbstractTable data
+    /*!
+     * \brief Adds all rows and columns from `lhs_model` and `rhs_model` to the spreadsheet. This is generally used to export linked 
+     * `ehm_dal::tables::AbstractTable`s using `Qt::DisplayRole` or `Qt::EditRole`. 
+     * `lhs` denotes the first model (which will appear on the left hand side of the spreadsheet) and 
+     * `rhs` denotes the second model (which will appear on the right hand side of the spreadsheet).
+     * \param lhs_model First source `ehm_dal::tables::AbstractTable`
+     * \param rhs_model Second source `ehm_dal::tables::AbstractTable`
+     * \param role Source data role
+     */
+    void add(ehm_dal::tables::AbstractTable *lhs_model,
+             ehm_dal::tables::AbstractTable *rhs_model,
+             const Qt::ItemDataRole role = Qt::DisplayRole);
+    /*!
+     * \brief Adds all rows and the selected columns from `lhs_model` and `rhs_model` to the spreadsheet. This is generally used to export linked 
+     * `ehm_dal::tables::AbstractTable`s using `Qt::DisplayRole` or `Qt::EditRole`. 
+     * `lhs` denotes the first model (which will appear on the left hand side of the spreadsheet) and 
+     * `rhs` denotes the second model (which will appear on the right hand side of the spreadsheet).
+     * \param lhs_model First source `ehm_dal::tables::AbstractTable`
+     * \param lhs_column_index_list Column indexes of the first model to be added
+     * \param rhs_model Second source `ehm_dal::tables::AbstractTable`
+     * \param rhs_column_index_list Column indexes of the second model to be added
+     * \param role Source data role
+     */
+    void add(ehm_dal::tables::AbstractTable *lhs_model,
+             const std::vector<qint32> &lhs_column_index_list,
+             ehm_dal::tables::AbstractTable *rhs_model,
+             const std::vector<qint32> &rhs_column_index_list,
+             const Qt::ItemDataRole role = Qt::DisplayRole);
+    /*!
+     * \brief Adds the selected row and all columns from `model` to the spreadsheet. This is generally used to export linked 
+     * `ehm_dal::tables::AbstractTable`s using `Qt::DisplayRole` or `Qt::EditRole`. 
+     * `lhs` denotes the first model (which will appear on the left hand side of the spreadsheet) and 
+     * `rhs` denotes the second model (which will appear on the right hand side of the spreadsheet).
+     * \param lhs_model First source `ehm_dal::tables::AbstractTable`
+     * \param lhs_row Source row of the first model
+     * \param rhs_model Second source `ehm_dal::tables::AbstractTable`
+     * \param rhs_row Source row of the second model
+     * \param role Source data role
+     */
+    void add(ehm_dal::tables::AbstractTable *lhs_model,
+             const qint32 lhs_row,
+             ehm_dal::tables::AbstractTable *rhs_model,
+             const qint32 rhs_row,
+             const Qt::ItemDataRole role = Qt::DisplayRole);
+    /*!
+     * \brief Adds the selected row and selected columns from `model` to the spreadsheet. This is generally used to 
+     * export linked `ehm_dal::tables::AbstractTable`s using `Qt::DisplayRole` or `Qt::EditRole`. 
+     * `lhs` denotes the first model (which will appear on the left hand side of the spreadsheet) and 
+     * `rhs` denotes the second model (which will appear on the right hand side of the spreadsheet).
+     * \param lhs_model First source `ehm_dal::tables::AbstractTable`
+     * \param lhs_row Source row of the first model
+     * \param lhs_column_index_list Column indexes of the first model to be added
+     * \param rhs_model Second source `ehm_dal::tables::AbstractTable`
+     * \param rhs_row Source row of the second model
+     * \param rhs_column_index_list Column indexes of the second model to be added
+     * \param role Source data role
+     */
+    void add(ehm_dal::tables::AbstractTable *lhs_model,
+             const qint32 lhs_row,
+             const std::vector<qint32> &lhs_column_index_list,
+             ehm_dal::tables::AbstractTable *rhs_model,
+             const qint32 rhs_row,
+             const std::vector<qint32> &rhs_column_index_list,
+             const Qt::ItemDataRole role = Qt::DisplayRole);
+
     // Add data - cells/rows: QAbstractTableModel data
     /*!
      * \brief Adds all rows and columns from `model` to the spreadsheet. This is generally used to export
@@ -192,12 +258,37 @@ public:
      */
     void addHeader(QAbstractTableModel *model);
     /*!
-     * \brief Adds a header row of column names of the selected columnd from the 'model'. 
+     * \brief Adds a header row of column names of the selected columns from the 'model'. 
      * This is typically used to add the names of the selected columns from a Table as a header row to the spreadsheet.
      * \param model Source `QAbstractTableModel` or Table
      * \param column_index_list Column indexes to be added
      */
     void addHeader(QAbstractTableModel *model, const std::vector<qint32> &column_index_list);
+
+    // Add data - header: dual model data
+    /*!
+     * \brief Adds a header row of column names of all columns from the 'lhs_model' and 'rhs_model'. 
+     * This is typically used to add the names of all columns from two Tables as a header row to the spreadsheet. 
+     * `lhs` denotes the first model (which will appear on the left hand side of the spreadsheet) and
+     * `rhs` denotes the second model (which will appear on the right hand side of the spreadsheet).
+     * \param lhs_model First source `QAbstractTableModel` or Table
+     * \param rhs_model Second source `QAbstractTableModel` or Table
+     */
+    void addHeader(QAbstractTableModel *lhs_model, QAbstractTableModel *rhs_model);
+    /*!
+     * \brief Adds a header row of column names of the selected columns from the 'lhs_model' and 'rhs_model'. 
+     * This is typically used to add the names of the selected columns from two Table as a header row to the spreadsheet.
+     * `lhs` denotes the first model (which will appear on the left hand side of the spreadsheet) and
+     * `rhs` denotes the second model (which will appear on the right hand side of the spreadsheet).
+     * \param lhs_model First source `QAbstractTableModel` or Table
+     * \param lhs_column_index_list Column indexes to be added
+     * \param rhs_model Second source `QAbstractTableModel` or Table
+     * \param rhs_column_index_list Column indexes to be added
+     */
+    void addHeader(QAbstractTableModel *lhs_model,
+                   const std::vector<qint32> &lhs_column_index_list,
+                   QAbstractTableModel *rhs_model,
+                   const std::vector<qint32> &rhs_column_index_list);
 
     // Add data - prefix header
     /*!
@@ -460,6 +551,18 @@ private:
     std::vector<QVariant> prefix_header_data_;
 
     // Add data - cells/rows: Private model data methods
+    void addFromDualTableModels(QAbstractTableModel *lhs_model,
+                                const std::vector<qint32> &lhs_column_index_list,
+                                QAbstractTableModel *rhs_model,
+                                const std::vector<qint32> &rhs_column_index_list,
+                                const Qt::ItemDataRole role = Qt::DisplayRole);
+    void addFromDualTableModels(QAbstractTableModel *lhs_model,
+                                const qint32 lhs_row,
+                                const std::vector<qint32> &lhs_column_index_list,
+                                QAbstractTableModel *rhs_model,
+                                const qint32 rhs_row,
+                                const std::vector<qint32> &rhs_column_index_list,
+                                const Qt::ItemDataRole role = Qt::DisplayRole);
     void addFromTableModel(QAbstractTableModel *model,
                            const std::vector<qint32> &column_index_list,
                            const Qt::ItemDataRole role = Qt::DisplayRole);
