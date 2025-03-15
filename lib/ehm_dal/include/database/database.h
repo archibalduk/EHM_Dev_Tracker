@@ -62,7 +62,7 @@ public:
     bool read(QDataStream &in, const qsizetype file_size);
 
     // Get data
-    /*!
+    /*!;
      * \brief Returns a shared pointer to a Table with a ehm_dal::tables::TableIndex of `table_id`.
      * \param table_id ehm_dal::tables::TableIndex of the desired Table.
      * \return a `shared_ptr` to the Table or `nullptr` if the ehm_dal::tables::TableIndex is invalid.

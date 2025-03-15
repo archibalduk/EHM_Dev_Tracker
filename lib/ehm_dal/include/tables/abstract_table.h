@@ -207,6 +207,7 @@ public:
     }
 
     // Remove data
+    bool clearAll();
     bool removeRows(qint32 row, qint32 count, const QModelIndex &parent = QModelIndex()) override;
 
     // Set data

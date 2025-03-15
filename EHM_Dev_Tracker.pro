@@ -20,7 +20,7 @@ RC_FILE = res/EHM_Dev_Tracker.rc
 #RESOURCES = res/EHM_Dev_Tracker.qrc
 
 # Application version
-VERSION = 0.1.0
+VERSION = 0.1.1
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # External project libraries
